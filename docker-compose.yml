@@ -1,0 +1,71 @@
+version: "3.6"
+services: 
+    node1:
+        hostname: ${NODE_NAME_1}
+        image: ${IMAGE_NAME}     
+        restart: "unless-stopped"
+        ports: 
+            - "127.0.0.1:9000:9000"
+            - "127.0.0.1:9001:9001"
+            - "40401:40408"
+            - "40401:40408/udp"
+        volumes: 
+            - ${NODE_DIR_1}:/fusion-node
+        command: -u ${ADDRESS_1} -e ${NODE_NAME_1} ${AUTO_BUY} ${MINING} ${TESTNET}
+        networks:
+            fusion-node-net:
+                ipv4_address: 172.16.239.11
+    node2:
+        hostname: ${NODE_NAME_2}
+        image: ${IMAGE_NAME}     
+        restart: "unless-stopped"
+        ports: 
+            - "127.0.0.1:9002:9000"
+            - "127.0.0.1:9003:9001"
+            - "40402:40408"
+            - "40402:40408/udp"
+        volumes: 
+            - ${NODE_DIR_2}:/fusion-node
+        command: -u ${ADDRESS_2} -e ${NODE_NAME_2} ${AUTO_BUY} ${MINING} ${TESTNET}
+        networks:
+            fusion-node-net:
+                ipv4_address: 172.16.239.12
+    node3:
+        hostname: ${NODE_NAME_3}
+        image: ${IMAGE_NAME}     
+        restart: "unless-stopped"
+        ports: 
+            - "127.0.0.1:9004:9000"
+            - "127.0.0.1:9005:9001"
+            - "40403:40408"
+            - "40403:40408/udp"
+        volumes: 
+            - ${NODE_DIR_3}:/fusion-node
+        command: -u ${ADDRESS_3} -e ${NODE_NAME_3} ${AUTO_BUY} ${MINING} ${TESTNET}
+        networks:
+            fusion-node-net:
+                ipv4_address: 172.16.239.13
+    node4:
+        hostname: ${NODE_NAME_4}
+        image: ${IMAGE_NAME}     
+        restart: "unless-stopped"
+        ports: 
+            - "127.0.0.1:9006:9000"
+            - "127.0.0.1:9007:9001"
+            - "40404:40408"
+            - "40404:40408/udp"
+        volumes: 
+            - ${NODE_DIR_4}:/fusion-node
+        command: -u ${ADDRESS_4} -e ${NODE_NAME_4} ${AUTO_BUY} ${MINING} ${TESTNET}
+        networks:
+            fusion-node-net:
+                ipv4_address: 172.16.239.14
+networks:
+    fusion-node-net:
+        name: fusion-node-net
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.239.0/24
+
